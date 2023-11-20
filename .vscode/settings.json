@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "node_modules/": true,
+        "dist/": true
+    },
+
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.indentSize": "tabSize",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
+
