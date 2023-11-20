@@ -1,3 +1,4 @@
+import config from '../config';
 import encode, { EncodeResult } from './encode';
 
 test('encode should correctly shorten a given URL', async () => {
@@ -6,7 +7,7 @@ test('encode should correctly shorten a given URL', async () => {
     const expected: EncodeResult = {
         type: 'ok',
         value: {
-            shortenedUrl: 'QJjikC'
+            shortenedUrl: config.prodHost + 'QJjikC'
         }
     };
 

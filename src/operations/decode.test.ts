@@ -1,9 +1,10 @@
+import config from '../config';
 import decode, { DecodeResult } from './decode';
 import encode from './encode';
 
 test('decode should return the original URL for a given shortened value', async () => {
     await encode({ url: 'https://www.google.com' });
-    const received = await decode({ shortenedUrl: 'QJjikC' });
+    const received = await decode({ shortenedUrl: config.prodHost + 'QJjikC' });
 
     const expected: DecodeResult = {
         type: 'ok',
