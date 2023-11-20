@@ -4,13 +4,13 @@ const shortener = createShortener();
 
 test('encode should correctly shorten a given URL', () => {
     const received = shortener.encode('https://www.google.com');
-    const expected = '-1gkqaje';
+    const expected = 'QJjikC';
 
     expect(received).toBe(expected);
 });
 
 test('decode should return the original URL for a given shortened value', () => {
-    const received = shortener.decode('-1gkqaje');
+    const received = shortener.decode('QJjikC');
     const expected = 'https://www.google.com';
 
     expect(received).toBe(expected);

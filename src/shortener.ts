@@ -1,3 +1,6 @@
+import murmurhash from 'murmurhash';
+import toString64Base from './utils/string/toString64Base';
+
 interface Shortener {
     encode(value: string): string;
     decode(value: string): string | undefined;
@@ -8,7 +11,18 @@ export function createShortener(): Shortener {
 
     return {
         encode(value: string): string {
-            const shortened = hash(value).toString(32);
+            // murmur hash algorithm is chosen because of its performance and low rate of collisions.
+            // See for details: https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed/145633#145633
+            const hash = murmurhash.v3(value);
+
+            const shortened = toString64Base(hash, 32);
+
+            if (shortenedToOriginalMap.has(shortened) && shortenedToOriginalMap.get(shortened) !== value) {
+                throw new Error(
+                    `Hash collision: ${shortened} is already mapped to ${shortenedToOriginalMap.get(shortened)}`
+                );
+            }
+
             shortenedToOriginalMap.set(shortened, value);
             return shortened;
         },
@@ -17,16 +31,6 @@ export function createShortener(): Shortener {
             return shortenedToOriginalMap.get(value);
         }
     };
-}
-
-function hash(value: string): number {
-    let hash = 0;
-    for (let i = 0; i < value.length; i++) {
-        const char = value.charCodeAt(i);
-        hash = (hash << 5) - hash + char;
-        hash = hash & hash;
-    }
-    return hash;
 }
 
 export default createShortener();

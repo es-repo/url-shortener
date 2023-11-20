@@ -6,7 +6,7 @@ test('encode should correctly shorten a given URL', async () => {
     const expected: EncodeResult = {
         type: 'ok',
         value: {
-            shortenedUrl: '-1gkqaje'
+            shortenedUrl: 'QJjikC'
         }
     };
 
